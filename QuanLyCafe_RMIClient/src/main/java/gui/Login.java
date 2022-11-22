@@ -117,14 +117,6 @@ public class Login extends JDialog {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 24));
 		lblNewLabel_1.setBounds(0, 10, 518, 38);
 		contentPanel.add(lblNewLabel_1);
-
-		JLabel lblQuenMatKhau = new JLabel("Quên Mật Khẩu?");
-		lblQuenMatKhau.setForeground(Color.BLUE);
-		lblQuenMatKhau.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblQuenMatKhau.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblQuenMatKhau.setHorizontalAlignment(SwingConstants.CENTER);
-		lblQuenMatKhau.setBounds(0, 242, 518, 22);
-		contentPanel.add(lblQuenMatKhau);
 	}
 
 	protected void dangNhap() throws RemoteException {

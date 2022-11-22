@@ -11,6 +11,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 
+import facade.ChiTietHoaDonFacade;
 import facade.HoaDonFacade;
 import facade.KhachHangFacade;
 import facade.LoaiSanPhamFacade;
@@ -40,6 +41,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -83,7 +85,9 @@ public class pnl_BanHang extends JPanel implements ActionListener {
 	private LoaiSanPhamFacade loaiSanPhamFacade;
 	private HoaDonFacade hoaDonFacade;
 	private NhanVienFacade nhanVienFacade;
-//	private ChiTietHoaDonFacade chiTietHoaDonFacade;
+	private ChiTietHoaDonFacade chiTietHoaDonFacade;
+	
+	private List<ChiTietHoaDon> listCTHD = new ArrayList<ChiTietHoaDon>();
 
 //	private String tenKhachHang;
 	int rowCTHD;
@@ -99,8 +103,8 @@ public class pnl_BanHang extends JPanel implements ActionListener {
 			loaiSanPhamFacade = (LoaiSanPhamFacade) Naming
 					.lookup("rmi://" + Config.getAddress() + "/loaiSanPhamFacade");
 			hoaDonFacade = (HoaDonFacade) Naming.lookup("rmi://" + Config.getAddress() + "/hoaDonFacade");
-//			chiTietHoaDonFacade = (ChiTietHoaDonFacade) Naming
-//					.lookup("rmi://" + Config.getAddress() + "/chiTietHoaDonFacade");
+			chiTietHoaDonFacade = (ChiTietHoaDonFacade) Naming
+					.lookup("rmi://" + Config.getAddress() + "/chiTietHoaDonFacade");
 			nhanVienFacade = (NhanVienFacade) Naming.lookup("rmi://" + Config.getAddress() + "/nhanVienFacade");
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			e.printStackTrace();
@@ -545,11 +549,22 @@ public class pnl_BanHang extends JPanel implements ActionListener {
 
 		try {
 			hoaDon = hoaDonFacade.addhoaDon(hoaDon);
+			
 
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+		
+		for (ChiTietHoaDon chiTietHoaDon : listCTHD) {
+			chiTietHoaDon.setHoaDon(hoaDon);
+			try {
+				chiTietHoaDonFacade.addchitiethoaDon(chiTietHoaDon);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		}
 		dfModelCTHD.setRowCount(0);
+		listCTHD.clear();
 		JOptionPane.showMessageDialog(null, "Lập hóa đơn thành công");
 	}
 	
@@ -590,16 +605,14 @@ public class pnl_BanHang extends JPanel implements ActionListener {
 
 				KhachHang kh = khachHangFacade.getKhachHangById(txtMaKH.getText());
 				NhanVien nv = ShareData.taiKhoanDangNhap.getNhanVien();
-				HoaDon hoaDon = new HoaDon(LocalDate.now(), soluong * sp.getDonGia(), kh, nv);
 				ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
-				chiTietHoaDon.setHoaDon(hoaDon);
 				chiTietHoaDon.setSoLuong(soluong);
 				chiTietHoaDon.setThanhTien(soluong * sp.getDonGia());
 				chiTietHoaDon.setSanPham(sp);
 
 				int rowCount = tblChiTietHoaDon.getRowCount();
-//				System.out.println(rowCount);]
-				
+				listCTHD.add(chiTietHoaDon);
+ 
 				
 				if (soluong <= 0) {
 					JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0");
