@@ -82,7 +82,7 @@ public class Dialog_LoaiSanPham extends JDialog {
 		txtTenLoai.setFont(tahoma14);
 		txtTenLoai.setColumns(10);
 
-		JScrollPane scrollPane = new JScrollPane();
+		final JScrollPane scrollPane = new JScrollPane();
 
 		btnDong = new JButton("Đóng");
 		btnDong.setFocusable(false);

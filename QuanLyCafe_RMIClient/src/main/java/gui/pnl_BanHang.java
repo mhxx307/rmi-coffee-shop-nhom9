@@ -11,7 +11,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 
-import facade.ChiTietHoaDonFacade;
 import facade.HoaDonFacade;
 import facade.KhachHangFacade;
 import facade.LoaiSanPhamFacade;
@@ -41,7 +40,6 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -85,9 +83,9 @@ public class pnl_BanHang extends JPanel implements ActionListener {
 	private LoaiSanPhamFacade loaiSanPhamFacade;
 	private HoaDonFacade hoaDonFacade;
 	private NhanVienFacade nhanVienFacade;
-	private ChiTietHoaDonFacade chiTietHoaDonFacade;
+//	private ChiTietHoaDonFacade chiTietHoaDonFacade;
 
-	private String tenKhachHang;
+//	private String tenKhachHang;
 	int rowCTHD;
 
 	/**
@@ -101,8 +99,8 @@ public class pnl_BanHang extends JPanel implements ActionListener {
 			loaiSanPhamFacade = (LoaiSanPhamFacade) Naming
 					.lookup("rmi://" + Config.getAddress() + "/loaiSanPhamFacade");
 			hoaDonFacade = (HoaDonFacade) Naming.lookup("rmi://" + Config.getAddress() + "/hoaDonFacade");
-			chiTietHoaDonFacade = (ChiTietHoaDonFacade) Naming
-					.lookup("rmi://" + Config.getAddress() + "/chiTietHoaDonFacade");
+//			chiTietHoaDonFacade = (ChiTietHoaDonFacade) Naming
+//					.lookup("rmi://" + Config.getAddress() + "/chiTietHoaDonFacade");
 			nhanVienFacade = (NhanVienFacade) Naming.lookup("rmi://" + Config.getAddress() + "/nhanVienFacade");
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			e.printStackTrace();

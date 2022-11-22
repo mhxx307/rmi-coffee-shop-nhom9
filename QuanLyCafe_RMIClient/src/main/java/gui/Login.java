@@ -49,7 +49,7 @@ public class Login extends JDialog {
 		try {
 			taiKhoanFacade = (TaiKhoanFacade) Naming.lookup("rmi://"+ Config.getAddress() +"/taiKhoanFacade");
 			nhanVienFacade =  (NhanVienFacade) Naming.lookup("rmi://"+ Config.getAddress() +"/nhanVienFacade");
-			nhanVienFacade.getDanhSachNV();
+//			nhanVienFacade.getDanhSachNV();
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			e.printStackTrace();
 		}
